@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "com.ryan.citystory.controller",
         "com.ryan.citystory.service",
         "com.ryan.citystory.aop",
-        "com.ryan.citystory.controller",
         "com.ryan.citystory.custom"
 })
 @MapperScan("com.ryan.citystory.mapper")

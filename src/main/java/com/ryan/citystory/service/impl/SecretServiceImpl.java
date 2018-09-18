@@ -50,8 +50,7 @@ public class SecretServiceImpl implements SecretService {
 
     @Override
     public void edit(Secret secret) {
-        Destination destination = new ActiveMQQueue("mvp.queue");
-        jmsConfig.sendMessage(destination,"修改secret成功");
+        jmsConfig.sendQueueMessage("修改secret成功");
     }
 
     public static void main(String[] args) {

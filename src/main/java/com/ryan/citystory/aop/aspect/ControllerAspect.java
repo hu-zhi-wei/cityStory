@@ -49,7 +49,7 @@ public class ControllerAspect {
         }
         logger.info("");
         logger.info("");
-        logger.info("-----［Ｍｅｔｈｏｄ］：" + methodName + " ------　［Ｅｎｄ］　 Result：[" + jsonObject.toJSONString(result) + "]");
+        logger.info("-----［Ｍｅｔｈｏｄ］：" + methodName + " ------　［Ｅｎｄ］　 Result：[" + jsonObject.toJSONString() + "]");
         logger.info("---Runtime：" + (endTime - startTime) + "ms");
         logger.info("");
         logger.info("");
