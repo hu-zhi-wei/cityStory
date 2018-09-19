@@ -28,7 +28,7 @@ public class SystemFilter implements Filter {
     private Logger logger = LoggerFactory.getLogger(SystemFilter.class);
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        logger.info("************     程序正在启动     ************");
     }
 
     @Override
@@ -45,22 +45,23 @@ public class SystemFilter implements Filter {
         logger.info("************    REQUEST BEGIN    ************");
         logger.info(String.format("请求方式：%s --- 请求路径：%s",req.getMethod(),req.getServletPath()));
         /* 判断是否授权 */
-        if (req.getServletPath().endsWith(".jsp") || req.getServletPath().endsWith(".css") || req.getServletPath().endsWith(".ico")){
-
-        }else {
-            String secret = StringUtils.isNotBlank(req.getHeader("secret")) ? SecretConstant.secret.get(req.getHeader("secret")) : null;
-            if ( StringUtils.isBlank(secret)){
-                logger.info("请求未授权 ****** IP：{}，Method：{}，Url：{}，Secret：{}",SystemUtil.getClientIP(req),req.getMethod(),req.getServletPath(),secret);
-                printSecretError(res);
-                return;
-            }
-        }
+//        if (req.getServletPath().endsWith(".jsp") || req.getServletPath().endsWith(".css") || req.getServletPath().endsWith(".ico")){
+//
+//        }else {
+//            String secret = StringUtils.isNotBlank(req.getHeader("secret")) ? SecretConstant.secret.get(req.getHeader("secret")) : null;
+//            if ( StringUtils.isBlank(secret)){
+//                logger.info("请求未授权 ****** IP：{}，Method：{}，Url：{}，Secret：{}",SystemUtil.getClientIP(req),req.getMethod(),req.getServletPath(),secret);
+//                printSecretError(res);
+//                return;
+//            }
+//        }
 
         Date beginDate = new Date();
         /*  打印参数 */
         StringBuffer sb = printParams(new StringBuffer(), new HashMap<>(), req);
         /* 放行请求 */
         filterChain.doFilter(servletRequest, servletResponse);
+        res.setContentType("text/html; charset=UTF-8" );
         long time = new Date().getTime() - beginDate.getTime();
         logger.info("请求IP：{} --- 请求方式：{} --- 请求路径：{} --- 请求耗时：{}",SystemUtil.getClientIP(req),req.getMethod(),req.getServletPath(),time);
         logger.info(sb.toString());

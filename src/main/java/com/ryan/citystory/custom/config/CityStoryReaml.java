@@ -1,5 +1,6 @@
 package com.ryan.citystory.custom.config;
 
+import com.alibaba.fastjson.JSON;
 import com.ryan.citystory.bean.User;
 import com.ryan.citystory.service.UserService;
 import org.apache.shiro.authc.*;
@@ -32,12 +33,10 @@ public class CityStoryReaml extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         logger.info("**********   进入认证方法   **********");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        User user = (User)token.getPrincipal();
-        User loginUser = userService.findByUserName(user.getUserName());
+        User loginUser = userService.findByUserName(token.getUsername());
         if ( loginUser != null ){
             return new SimpleAuthenticationInfo(loginUser, loginUser.getPassword(),loginUser.getUserName());
         }
-        getName();
         return null;
     }
 
@@ -48,7 +47,6 @@ public class CityStoryReaml extends AuthorizingRealm {
         int hashIterations = 1024;//加密次数
         Md5Hash md5Hash = Md5Hash.fromHexString("123456");
         String s = md5Hash.toBase64();
-        System.out.println(md5Hash+ "___"+ s);
         ByteSource credentialsSalt = ByteSource.Util.bytes(userName);
         Object obj = new SimpleHash(hashAlgorithName, password, credentialsSalt, hashIterations);
         System.out.println(obj.toString());
