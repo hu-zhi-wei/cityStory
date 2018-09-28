@@ -6,7 +6,6 @@ import com.ryan.citystory.custom.config.JmsConfig;
 import com.ryan.citystory.custom.constant.ApplicationConfig;
 import com.ryan.citystory.mapper.SecretMapper;
 import com.ryan.citystory.service.SecretService;
-import org.apache.activemq.command.ActiveMQQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
-import javax.jms.Destination;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +49,12 @@ public class SecretServiceImpl implements SecretService {
     @Override
     public void edit(Secret secret) {
         jmsConfig.sendQueueMessage("修改secret成功");
+    }
+
+    @Override
+    public List<Secret> findAll(Integer page, Integer size) {
+
+        return secretMapper.findAllByReceiver(config.systemName);
     }
 
     public static void main(String[] args) {

@@ -1,10 +1,7 @@
 package com.ryan.citystory.utils;
 
-import com.ryan.citystory.bean.User;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
-
 import java.util.Random;
 import java.util.UUID;
 

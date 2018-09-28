@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +43,13 @@ public class SecretController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ResultBean<?> edit(Secret secret) {
         secretService.edit(secret);
+        return new ResultBean<>(ServiceCode.OK, ServiceCode.OK_DEFAULT_MSG, null);
+    }
+
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+    public ResultBean<?> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                 @RequestParam(value = "size", defaultValue = "10") Integer size ) {
+        secretService.findAll(page, size);
         return new ResultBean<>(ServiceCode.OK, ServiceCode.OK_DEFAULT_MSG, null);
     }
 

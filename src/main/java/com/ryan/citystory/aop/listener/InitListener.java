@@ -30,4 +30,9 @@ public class InitListener implements ServletContextListener {
         logger.info("");
         logger.info("");
     }
+
+    public static void main(String[] args) {
+
+
+    }
 }
