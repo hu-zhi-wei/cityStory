@@ -3,6 +3,7 @@ package com.ryan.citystory.custom.config;
 import com.alibaba.fastjson.JSON;
 import com.ryan.citystory.bean.Secret;
 import com.ryan.citystory.service.SecretService;
+import com.ryan.citystory.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -20,12 +21,19 @@ public class ScheduleTask {
 
     @Autowired
     private SecretService secretService;
+    @Autowired
+    private RedisUtil redisUtil;
         /**
          * 发送告警通知
          */
         public void scheduleTest() {
             System.out.println("当前时间为: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             List<Secret> all = secretService.findAll(1, 10);
+            if (redisUtil.hasKey("secret")){
+                System.out.println("redis: " + JSON.toJSONString(redisUtil.get("secret")));
+            }else {
+                redisUtil.set("secret", all, 10000L);
+            }
             System.err.println("scheduleTest开始定时执行结果: " + JSON.toJSONString(all));
         }
 
