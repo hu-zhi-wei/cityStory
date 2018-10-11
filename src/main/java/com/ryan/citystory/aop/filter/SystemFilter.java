@@ -43,6 +43,8 @@ public class SystemFilter implements Filter {
 
         logger.info("");
         logger.info("************    REQUEST BEGIN    ************");
+        logger.info("");
+        logger.info("");
         logger.info(String.format("请求方式：%s --- 请求路径：%s",req.getMethod(),req.getServletPath()));
         /* 判断是否授权 */
 //        if (req.getServletPath().endsWith(".jsp") || req.getServletPath().endsWith(".css") || req.getServletPath().endsWith(".ico")){
@@ -64,7 +66,7 @@ public class SystemFilter implements Filter {
         res.setContentType("text/html; charset=UTF-8" );
         long time = new Date().getTime() - beginDate.getTime();
         logger.info("请求IP：{} --- 请求方式：{} --- 请求路径：{} --- 请求耗时：{}",SystemUtil.getClientIP(req),req.getMethod(),req.getServletPath(),time);
-        logger.info(sb.toString());
+        logger.info("");
         logger.info("************    REQUEST END    ************");
         logger.info("");
     }
@@ -118,6 +120,7 @@ public class SystemFilter implements Filter {
                 stb.append(key + "=******&");
             }
         }
+
         return stb;
     }
 }

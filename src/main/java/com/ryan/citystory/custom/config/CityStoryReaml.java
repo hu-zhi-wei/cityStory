@@ -1,19 +1,23 @@
 package com.ryan.citystory.custom.config;
 
-import com.alibaba.fastjson.JSON;
+import com.ryan.citystory.bean.Resources;
 import com.ryan.citystory.bean.User;
 import com.ryan.citystory.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
+
+import java.util.Set;
 
 @Component
 public class CityStoryReaml extends AuthorizingRealm {
@@ -24,9 +28,18 @@ public class CityStoryReaml extends AuthorizingRealm {
     private UserService userService;
 
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection call) {
         logger.info("**********   进入授权方法   **********");
-        return null;
+        SimpleAuthorizationInfo info = null;
+        User user = (User) call.getPrimaryPrincipal();
+        Set<Resources> resources = userService.getResourcesByUserId(user.getId());
+        if (!CollectionUtils.isEmpty(resources)){
+            info = new SimpleAuthorizationInfo();
+            for (Resources resource : resources) {
+                info.addStringPermission(resource.getPageUrl());
+            }
+        }
+        return info;
     }
 
     @Override

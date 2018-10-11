@@ -31,7 +31,7 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-        <table schema="hobar" tableName="persons" enableCountByExample="false" enableDeleteByExample="false"
+        <table schema="hobar" tableName="users" enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>

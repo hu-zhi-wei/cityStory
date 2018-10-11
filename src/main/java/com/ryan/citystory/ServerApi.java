@@ -7,7 +7,9 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+//import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
+//@EnableEurekaServer
 @SpringBootApplication
 @EnableTransactionManagement
 @ComponentScan(basePackages= {

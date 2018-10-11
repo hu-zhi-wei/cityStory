@@ -116,14 +116,15 @@ public class ApplicationConfiguration {
 
         //定义过滤器
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/index", "authc");
+        filterChainDefinitionMap.put("/static/**", "anon");
+//        filterChainDefinitionMap.put("/index", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/user/login", "anon");
         filterChainDefinitionMap.put("/admin", "roles[admin]");
         filterChainDefinitionMap.put("/edit", "perms[delete]");
         filterChainDefinitionMap.put("/druid/**", "anon");
         //需要登录访问的资源 , 一般将/**放在最下边
-        filterChainDefinitionMap.put("/**", "authc");
+//        filterChainDefinitionMap.put("/**", "authc");
 
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -168,7 +169,7 @@ public class ApplicationConfiguration {
     public CronTriggerFactoryBean cronJobTrigger(MethodInvokingJobDetailFactoryBean jobDetail) {
         CronTriggerFactoryBean tigger = new CronTriggerFactoryBean();
         tigger.setJobDetail(jobDetail.getObject());
-        tigger.setCronExpression("0/6 * * * * ?");// 表示每隔6秒钟执行一次
+        tigger.setCronExpression("0 0 10 * * ?");// 表示每隔6秒钟执行一次
         //tigger.set
         tigger.setName("myTigger");// trigger的name
         return tigger;
