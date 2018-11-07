@@ -3,15 +3,14 @@ package com.ryan.citystory.controller;
 
 import com.ryan.citystory.bean.User;
 import com.ryan.citystory.service.UserService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController extends BaseController<User, Integer> {
 
@@ -24,17 +23,15 @@ public class UserController extends BaseController<User, Integer> {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(User user, HttpServletRequest request){
-        ModelAndView modelAndView = null;
+    public String login(User user, HttpServletRequest request, Model model){
         try {
+            userService.defaultFunction();
             User login = userService.login(user, request);
-            modelAndView = new ModelAndView("redirect:/index.jsp");//重定向
-            modelAndView.addObject("user",login);
-            return modelAndView;
+            model.addAttribute("user", login);
+            return "index";
         } catch (Exception e) {
             e.printStackTrace();
-            modelAndView = new ModelAndView("redirect:/login.jsp");//重定向
-            return modelAndView;
+            return "login";
         }
     }
 

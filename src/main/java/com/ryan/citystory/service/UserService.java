@@ -13,4 +13,12 @@ public interface UserService extends BaseService<User, Integer> {
     User findByUserName(String userName);
 
     Set<Resources> getResourcesByUserId(Integer id);
+
+    default String defaultFunction() {
+        System.out.println("wo shi default function!!!");
+               return "default function";
+            }
+    static String get(){
+        return "hello word";
+    }
 }

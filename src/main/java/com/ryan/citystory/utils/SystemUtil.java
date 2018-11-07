@@ -1,7 +1,10 @@
 package com.ryan.citystory.utils;
 
+import org.springframework.stereotype.Controller;
+
 import javax.servlet.http.HttpServletRequest;
 
+@Controller
 public class SystemUtil {
 
     /**
